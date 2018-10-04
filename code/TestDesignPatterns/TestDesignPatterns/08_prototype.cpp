@@ -12,7 +12,7 @@ typedef std::string String;
 class Cloneable
 {
 public:
-	virtual void* clone() = 0;
+	virtual Cloneable* clone() = 0;
 };
 
 // Create an abstract class implementing Clonable interface.
@@ -42,14 +42,14 @@ public:
 		this->id = id;
 	}
 
-	void* clone() {
+	Cloneable* clone() {
 		Shape* clone = nullptr;
 
 		clone = new Shape;
 		clone->setId(id);
 		clone->setType(type);
 
-		return (void*)clone;
+		return clone;
 	}
 };
 
@@ -126,13 +126,13 @@ map<String, Shape*> ShapeCache::shapeMap;
 int main8(int argc, char ** argv) {
 	ShapeCache::loadCache();
 
-	Shape* clonedShape = (Shape*)ShapeCache::getShape("1");
+	Shape* clonedShape = ShapeCache::getShape("1");
 	cout << "Shape : " << clonedShape->getType().c_str() << endl;
 
-	Shape* clonedShape2 = (Shape*)ShapeCache::getShape("2");
+	Shape* clonedShape2 = ShapeCache::getShape("2");
 	cout << "Shape : " << clonedShape2->getType().c_str() << endl;
 
-	Shape* clonedShape3 = (Shape*)ShapeCache::getShape("3");
+	Shape* clonedShape3 = ShapeCache::getShape("3");
 	cout << "Shape : " << clonedShape3->getType().c_str() << endl;
 
 	SafeDelete(clonedShape);
